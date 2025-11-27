@@ -1,7 +1,7 @@
 # 📈 Análisis de Turismo Receptivo en Argentina (2010 - 2013)
 
 ## Introducción y Objetivo
-[cite_start]Este proyecto final del curso de Ciencia de Datos  [cite_start]busca analizar la evolución de los turistas no residentes que ingresaron a Argentina entre 2010 y 2013, poniendo foco en los medios de transporte utilizados (Aéreo, Terrestre, Fluvial) y los patrones estacionales.
+Este proyecto final del curso de Ciencia de Datos  [cite_start]busca analizar la evolución de los turistas no residentes que ingresaron a Argentina entre 2010 y 2013, poniendo foco en los medios de transporte utilizados (Aéreo, Terrestre, Fluvial) y los patrones estacionales.
 
 ## Dataset
 * **Fuente de Datos:** [Indicar la fuente original si la conoces, o poner: Dataset facilitado por el docente].
