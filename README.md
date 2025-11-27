@@ -17,7 +17,7 @@ El análisis siguió el flujo estándar de un proyecto de datos:
 | **Visualización** | **ggplot2** | Creación de gráficos de series temporales para observar la estacionalidad y picos de entrada. |
 
 ## Conclusiones Clave
-* [cite_start]El transporte aéreo fue el medio principal utilizado por los turistas no residentes.
+El transporte aéreo fue el medio principal utilizado por los turistas no residentes.
 * Se observaron picos estacionales de llegada según el año y la época.
 
 ---
