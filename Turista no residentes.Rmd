@@ -1,0 +1,84 @@
+---
+title: '"TP integrador final - Ciencia de datos 2025: Análisis de turistas no residentes en Argentina"'
+author: "Daniela Sequeira"
+date: "2025-06-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+
+## Planteo del problema
+
+Este análisis busca responder la pregunta:
+
+**¿Cómo evolucionó la llegada de turistas no residentes a Argentina entre 2010 y 2013 según el medio de transporte utilizado?**
+
+El presente trabajo analiza el ingreso de turistas no residentes a Argentina en el período 2010-2013. El objetivo es explorar cómo evolucionaron las llegadas de estos turistas y cuál fue el peso relativo de los distintos medios de transporte utilizados (aéreo, terrestre y fluvial/marítimo).
+
+El análisis se realiza sobre datos oficiales que registran la cantidad de turistas no residentes que ingresaron al país, agrupados por mes y medio de transporte. Este estudio permite comprender tendencias en el turismo receptivo y cómo se movilizan los visitantes internacionales.
+
+## Importación de datos
+
+```{r importacion}
+# Leemos el archivo CSV exportado
+turistas <- read.csv("C:/Users/danie_000/Desktop/I.F.T.S.N°33/Ciencia de Datos/Trabajo Final/turistas-no-residentes-serie.csv")
+
+# Conversión de fecha
+turistas <- turistas %>%
+  mutate(indice_tiempo = ymd(indice_tiempo))
+
+glimpse(turistas)
+head(turistas)
+```
+
+## Limpieza y transformación
+
+```{r limpieza}
+# Agregamos columna de año y agrupamos
+
+# Por año y medio de transporte
+turistas_anio_transporte <- turistas %>%
+  mutate(anio = year(indice_tiempo)) %>%
+  group_by(anio, medio_de_transporte) %>%
+  summarise(total_turistas = sum(turistas_no_residentes, na.rm = TRUE)) %>%
+  ungroup()
+
+# Por mes y medio de transporte
+turistas_mensual <- turistas %>%
+  group_by(indice_tiempo, medio_de_transporte) %>%
+  summarise(total_turistas = sum(turistas_no_residentes, na.rm = TRUE)) %>%
+  ungroup()
+```
+
+## Visualización
+
+```{r grafico_linea}
+# Evolución mensual
+ggplot(turistas_mensual, aes(x = indice_tiempo, y = total_turistas, color = medio_de_transporte)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Llegada mensual de turistas no residentes por medio de transporte",
+       x = "Fecha",
+       y = "Cantidad de turistas")
+```
+
+```{r grafico_columna}
+# Comparación anual
+ggplot(turistas_anio_transporte, aes(x = factor(anio), y = total_turistas, fill = medio_de_transporte)) +
+  geom_col(position = "dodge") +
+  labs(title = "Turistas no residentes por año y medio de transporte",
+       x = "Año",
+       y = "Cantidad de turistas")
+```
+
+## Conclusiones
+
+En el análisis se observó que:
+
+- El transporte aéreo es el principal medio utilizado por los turistas no residentes.
+- Existen picos estacionales y variaciones según el año.
+- Las principales dificultades estuvieron en la conversión de fechas y en la necesidad de chequear consistencia de nombres en los medios de transporte.
